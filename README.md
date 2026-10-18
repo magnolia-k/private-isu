@@ -203,6 +203,26 @@ docker run --network host --add-host host.docker.internal:host-gateway -i privat
        valid_lft forever preferred_lft forever
 ```
 
+#### Apple Container
+
+Apple Silicon Macでは、Apple Containerを使ってprivate-isuの環境を起動できます。
+詳細は [webapp/apple-container/README.md](webapp/apple-container/README.md) を参照してください。
+リポジトリのルートで、準備・起動・計測・停止の順に実行します。
+
+```sh
+make init
+container system start
+
+# 起動が完了するまで待つ（言語の省略時はRuby）
+./webapp/apple-container/compose.sh up
+
+# ベンチマークを実行。終了時にスコアを表示
+./webapp/apple-container/bench.sh
+
+# 計測終了後に停止・削除（MySQLデータは保持）
+./webapp/apple-container/compose.sh down
+```
+
 ### cloud-init を利用して環境を構築する
 
 matsuu氏が提供する[`cloud-init`に対応したISUCON過去問題環境構築用のcloud-config集](https://github.com/matsuu/cloud-init-isucon/)を利用して、競技者用およびベンチマーカーインスタンスを構築できます。
